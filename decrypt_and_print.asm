@@ -9,6 +9,9 @@ section .data
     ; Do not modify anything above this line unless you know what you are doing
     ; ==========================
     ; Your data goes here
+
+    xor_key dq 0x73113777
+
     ; ==========================
 
 section .text
@@ -28,6 +31,26 @@ decrypt_and_print:
     ; Do not modify anything above this line unless you know what you are doing
     ; ==========================
     ; Your code goes here
+
+    mov rax, rdi
+    xor rax, [xor_key]
+    ror rax, 4
+    call print_char_32
+
+    mov rax, rdi
+    xor rax, [xor_key]
+    ror rax, 4
+    call print_char_32
+    
+    mov rax, rdi
+    xor rax, [xor_key]
+    ror rax, 4
+    call print_char_32
+
+    mov rax, rdi
+    xor rax, [xor_key]
+    ror rax, 4
+    call print_char_32
     ; ==========================
     ; Do not modify anything below this line unless you know what you are doing
 
