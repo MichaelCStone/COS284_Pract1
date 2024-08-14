@@ -7,6 +7,10 @@
 section .data
     ; ==========================
     ; Your data goes here
+
+    greet db 'Welcome agent. What do you want to do, Encrypt [1] or Decrypt [2]?', 0xA
+	length equ $ - greet
+
     ; ==========================
 
 section .text
@@ -16,6 +20,18 @@ greeting:
     ; Do not modify anything above this line unless you know what you are doing
     ; ==========================
     ; Your code goes here
+
+    mov rax, 1 			; Syscall number for syswrite
+	mov rdi, 1			; Specify file descriptor,1 for stdout
+	mov rsi, greet
+	mov rdx, length
+	syscall
+	
+    xor rax, rax
+    xor rdi, rdi
+    xor rsi, rsi
+    xor rdx, rdx
+
     ; ==========================
     ; Do not modify anything below this line unless you know what you are doing
 
