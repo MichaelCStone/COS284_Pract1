@@ -33,7 +33,7 @@ get_user_choice:
     mov rax, 0
     mov rdi, 0
     mov rsi, catch
-    mov rdx, catch_size    
+    mov rdx, catch_length    
     syscall
 
 
