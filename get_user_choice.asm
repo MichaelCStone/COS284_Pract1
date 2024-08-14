@@ -7,6 +7,12 @@
 section .bss
     ; ==========================
     ; Your data goes here
+
+    prompt db 'Choice:'
+    prompt_length equ $ - prompt
+    catch db 256
+    catch_length equ $ - catch
+
     ; ==========================
 
 section .text
@@ -16,7 +22,20 @@ extern greeting
 
 get_user_choice:
     ; Call the greeting function to print the welcome message
+
     call greeting
+    mov rax, 1              ; sys_call number, in this case 1 for stdout
+    mov rdi, 1              ; First argument of syscall -> file descriptor, in this case 1 for sys_write
+    mov rsi, prompt         
+    mov rdx, prompt_length
+    syscall
+
+    mov rax, 0
+    mov rdi, 0
+    mov rsi, catch
+    mov rdx, catch_size    
+    syscall
+
 
     ; ==========================
     ; Your data goes here
