@@ -8,9 +8,9 @@ section .bss
     ; ==========================
     ; Your data goes here
 
-    prompt db 'Choice:'
+    prompt db 'Choice:', 0
     prompt_length equ $ - prompt
-    catch db 256
+    catch db 1
     catch_length equ $ - catch
 
     ; ==========================
@@ -24,6 +24,7 @@ get_user_choice:
     ; Call the greeting function to print the welcome message
 
     call greeting
+    
     mov rax, 1              ; sys_call number, in this case 1 for stdout
     mov rdi, 1              ; First argument of syscall -> file descriptor, in this case 1 for sys_write
     mov rsi, prompt         
