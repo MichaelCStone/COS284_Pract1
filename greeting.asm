@@ -27,10 +27,6 @@ greeting:
 	mov rdx, length
 	syscall
 	
-    xor rax, rax
-    xor rdi, rdi
-    xor rsi, rsi
-    xor rdx, rdx
 
     ; ==========================
     ; Do not modify anything below this line unless you know what you are doing
