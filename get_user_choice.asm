@@ -4,11 +4,11 @@
 ; Group member 03: Name_Surname_student-nr
 ; ==========================
 
-section .bss
-    ; ==========================
-    ; Your data goes here
-
-    ; ==========================
+section .data
+    prompt db 'Choice:', 0
+    prompt_length equ $ - prompt
+    catch db 0           ; Initialize catch to 0 (1 byte)
+    catch_length equ $ - catch
 
 section .text
     global get_user_choice
@@ -17,34 +17,26 @@ extern greeting
 
 get_user_choice:
     ; Call the greeting function to print the welcome message
-
     call greeting
 
-    mov rax, 1              ; sys_call number, in this case 1 for stdout
-    mov rdi, 1              ; First argument of syscall -> file descriptor, in this case 1 for sys_write
-    mov rsi, prompt         
-    mov rdx, prompt_length
+    ; Print the prompt message
+    mov rax, 1              ; sys_write syscall number
+    mov rdi, 1              ; File descriptor 1 (stdout)
+    mov rsi, prompt         ; Address of the prompt
+    mov rdx, prompt_length  ; Length of the prompt
     syscall
 
-    mov rax, 0
-    mov rdi, 0
-    mov rsi, catch
-    mov rdx, catch_length    
+    ; Read input from stdin
+    mov rax, 0             ; sys_read syscall number
+    mov rdi, 0             ; File descriptor 0 (stdin)
+    mov rsi, catch         ; Address of the buffer to store input
+    mov rdx, 1             ; Number of bytes to read
     syscall
 
-    xor rax, rax;
+    ; Convert ASCII to integer
+    xor rax, rax           ; Clear rax
+    movzx rbx, byte [catch] ; Load the byte stored in catch into rbx
+    sub bl, '0'            ; Convert ASCII character to integer (bl - '0')
+    add rax, rbx           ; Move the value to rax
 
-    movzx rbx, byte [catch]         ; Load the byte stored in catch
-    sub bl, 0                       ; Convert to int by subtracting 0 (so it does not change the value but the type)
-    add rax, rbx                    ; Move the value to rax, I used addition
-
-
-    ; ==========================
-    ; Your data goes here
-    prompt db 'Choice:', 0
-    prompt_length equ $ - prompt
-    catch db 1
-    catch_length equ $ - catch
-    ; ==========================
-    ; Do not modify anything below this line unless you know what you are doing 
     ret
