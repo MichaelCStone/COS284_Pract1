@@ -8,11 +8,6 @@ section .bss
     ; ==========================
     ; Your data goes here
 
-    prompt db 'Choice:', 0
-    prompt_length equ $ - prompt
-    catch db 1
-    catch_length equ $ - catch
-
     ; ==========================
 
 section .text
@@ -37,9 +32,19 @@ get_user_choice:
     mov rdx, catch_length    
     syscall
 
+    xor rax, rax;
+
+    movzx rbx, byte [catch]         ; Load the byte stored in catch
+    sub bl, 0                       ; Convert to int by subtracting 0 (so it does not change the value but the type)
+    add rax, rbx                    ; Move the value to rax, I used addition
+
 
     ; ==========================
     ; Your data goes here
+    prompt db 'Choice:', 0
+    prompt_length equ $ - prompt
+    catch db 1
+    catch_length equ $ - catch
     ; ==========================
     ; Do not modify anything below this line unless you know what you are doing 
     ret
