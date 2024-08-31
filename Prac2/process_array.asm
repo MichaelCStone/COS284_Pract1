@@ -1,8 +1,9 @@
 ; ==========================
-; Group member 01: Name_Surname_student-nr
-; Group member 02: Name_Surname_student-nr
-; Group member 03: Name_Surname_student-nr
+; Group member 01: Jamean_Groenewald_23524121
+; Group member 02: Michael_Stone_21497682
+; Group member 03: Wessel Johannes_Van der Walt_22790919
 ; ==========================
+
 section .text
     global processArray
 
